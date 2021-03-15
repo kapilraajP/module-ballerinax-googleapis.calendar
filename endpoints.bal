@@ -28,7 +28,6 @@ public client class Client {
     public function init(CalendarConfiguration calendarConfig) returns error? {
         self.calendarConfiguration = calendarConfig;
         http:ClientSecureSocket? socketConfig = calendarConfig?.secureSocketConfig;
-
         self.calendarClient = check new (BASE_URL, {
             auth: calendarConfig.oauth2Config,
             secureSocket: socketConfig
@@ -272,9 +271,9 @@ public client class Client {
 
 # Holds the parameters used to create a `Client`.
 #
-# + secureSocketConfig - OAuth2 configuration
-# + oauth2Config - Secure socket configuration
+# + oauth2Config - OAuth2 configuration
+# + secureSocketConfig- Secure socket configuration
 public type CalendarConfiguration record {
-    http:OAuth2DirectTokenConfig oauth2Config;
+    http:BearerTokenConfig|http:OAuth2DirectTokenConfig oauth2Config;
     http:ClientSecureSocket secureSocketConfig?;
 };
