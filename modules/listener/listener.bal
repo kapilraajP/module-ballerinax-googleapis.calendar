@@ -57,7 +57,7 @@ public class Listener {
     }
 
     public function gracefulStop() returns @tainted error? {
-        var res = check self.calendarClient->stopChannel(self.channelId, self.resourceId);
+        check self.calendarClient->stopChannel(self.channelId, self.resourceId);
         log:print("Subscription stopped");
         return self.httpListener.gracefulStop();
     }

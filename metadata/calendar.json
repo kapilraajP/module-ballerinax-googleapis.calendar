@@ -48,8 +48,6 @@
                             }
                         ],
                         "returnValue": {
-                            "name": "boolean",
-                            "displayName": "Result"
                         }
                     },
                     {
@@ -184,8 +182,6 @@
                             }
                         ],
                         "returnValue": {
-                            "name": "boolean",
-                            "displayName": "Result"
                         }
         
                     },
@@ -226,8 +222,6 @@
                             }
                         ],
                         "returnValue": {
-                            "name": "boolean",
-                            "displayName": "Result"
                         }
         
                     },

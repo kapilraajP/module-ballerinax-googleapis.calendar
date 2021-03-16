@@ -100,7 +100,7 @@ public function main() returns error? {
 
 ### Stop a channel subscription
 
-This sample shows how to stop an existing subscription. The channel id and resource is are required to do this operation. This operation returns a boolean `true` if successful. Else returns `error`. 
+This sample shows how to stop an existing subscription. The channel id and resource is are required to do this operation. This operation returns an error `true` if unsuccessful. 
 
 ```ballerina
 import ballerina/log;
@@ -127,11 +127,11 @@ public function main() returns error? {
 
     calendar:Client calendarClient = check new (config);
 
-    boolean|error res = calendarClient->stopChannel(testChannelId, testResourceId);
-    if (res is boolean) {
-        log:print("Channel is terminated");
-    } else {
+    error? res = calendarClient->stopChannel(testChannelId, testResourceId);
+    if (res is error) {
         log:printError(res.message());
+    } else {
+        log:print("Channel is terminated");
     }
 }
 ```

@@ -266,7 +266,7 @@ public function main() returns error? {
 
 ### Delete a calendar
 
-This sample shows how to delete a calendar in an authorized user's account. The calendar id is required to do this operation. This operation returns a boolean `true` if successful. Else returns `error`. 
+This sample shows how to delete a calendar in an authorized user's account. The calendar id is required to do this operation. This operation returns an error `true` if unsuccessful.
 
 ```ballerina
 import ballerina/log;
@@ -291,11 +291,11 @@ public function main() returns error? {
 
     calendar:Client calendarClient = check new (config);
 
-    boolean|error res = calendarClient->deleteCalendar(calendarId);
-    if (res is boolean) {
-        log:print("Calendar is deleted");
-    } else {
+    error? res = calendarClient->deleteCalendar(calendarId);
+    if (res is error) {
         log:printError(res.message());
+    } else {
+        log:print("Calendar is deleted");
     }
 }
 ```
@@ -502,7 +502,7 @@ public function main() returns error? {
 
 ### Delete an event
 
-This sample shows how to delete an event in an authorized user's calendar. The calendar and event ids are required to do this operation. This operation returns a boolean `true` if successful. Else returns `error`. 
+This sample shows how to delete an event in an authorized user's calendar. The calendar and event ids are required to do this operation. This operation returns an error `true` if unsuccessful. 
 
 ```ballerina
 import ballerina/log;
@@ -528,11 +528,11 @@ public function main() returns error? {
 
     calendar:Client calendarClient = check new (config);
 
-    boolean|error res = calendarClient->deleteEvent(calendarId, eventId);
-    if (res is boolean) {
-        log:print("Event is deleted");
-    } else {
+    error? res = calendarClient->deleteEvent(calendarId, eventId);
+    if (res is error) {
         log:printError(res.message());
+    } else {
+        log:print("Event is deleted");
     }
 }
 ```
@@ -576,7 +576,7 @@ public function main() returns error? {
 
 ### Stop a channel subscription
 
-This sample shows how to stop an existing subscription. The channel id and resource is are required to do this operation. This operation returns a boolean `true` if successful. Else returns `error`. 
+This sample shows how to stop an existing subscription. The channel id and resource is are required to do this operation. This operation returns an error `true` if unsuccessful.
 
 ```ballerina
 import ballerina/log;
@@ -603,11 +603,11 @@ public function main() returns error? {
 
     calendar:Client calendarClient = check new (config);
 
-    boolean|error res = calendarClient->stopChannel(testChannelId, testResourceId);
-    if (res is boolean) {
-        log:print("Channel is terminated");
-    } else {
+    error? res = calendarClient->stopChannel(testChannelId, testResourceId);
+    if (res is error) {
         log:printError(res.message());
+    } else {
+        log:print("Channel is terminated");
     }
 }
 ```

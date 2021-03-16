@@ -77,10 +77,8 @@ function testCreateCalendar() {
 @test:AfterSuite {}
 function testDeleteCalendar() {
     log:print("calendarClient -> deleteCalendar()");
-    boolean|error res = calendarClient->deleteCalendar(testCalendarId);
-    if (res is boolean) {
-        test:assertTrue(res, msg = "Expects true on success");
-    } else {
+    error? res = calendarClient->deleteCalendar(testCalendarId);
+    if (res is error) {
         test:assertFail(res.message());
     }
 }
@@ -160,11 +158,9 @@ function testUpdateEvent() {
 }
 function testDeleteEvent() {
     log:print("calendarClient -> deleteEvent()");
-    boolean|error res = calendarClient->deleteEvent(testCalendarId, testEventId);
-    boolean|error resp = calendarClient->deleteEvent(testCalendarId, testQuickAddEventId);
-    if (res is boolean) {
-        test:assertTrue(res, msg = "Expects true on success");
-    } else {
+    error? res = calendarClient->deleteEvent(testCalendarId, testEventId);
+    error? resp = calendarClient->deleteEvent(testCalendarId, testQuickAddEventId);
+    if (res is error) {
         test:assertFail(res.message());
     }
 }
@@ -189,10 +185,8 @@ function testWatchEvents() {
 }
 function testStopChannel() {
     log:print("calendarClient -> stopChannel()");
-    boolean|error res = calendarClient->stopChannel(testChannelId, testResourceId);
-    if (res is boolean) {
-        test:assertTrue(res, msg = "Expects true on success");
-    } else {
+    error? res = calendarClient->stopChannel(testChannelId, testResourceId);
+    if (res is error) {
         test:assertFail(res.message());
     }
 }
