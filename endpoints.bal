@@ -16,10 +16,12 @@
 
 import ballerina/http;
 import ballerina/uuid;
+import ballerinax/connector;
 
 # Client for Google Calendar connector.
 # 
 # + calendarClient - HTTP client endpoint
+@connector:Auth {authType: [connector:BEARER_TOKEN, connector:OAUTH2_DIRECT_TOKEN]}
 @display {label: "Google Calendar Client"}
 public client class Client {
     public http:Client calendarClient;
