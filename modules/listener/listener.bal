@@ -18,9 +18,11 @@ import ballerina/http;
 import ballerina/log;
 import ballerinax/googleapis_calendar as calendar;
 
-# Listener for Google Calendar connector   
-public class Listener {
+string? syncToken = ();
 
+# Listener for Google Calendar connector
+@display {label: "Google Calendar Listener"}
+public class Listener {
     private http:Listener httpListener;
     private calendar:Client calendarClient;
     private string calendarId;
@@ -30,7 +32,7 @@ public class Listener {
     private string channelId = "";
     private string? syncToken = ();
 
-    public isolated function init(int port, calendar:Client calendarClient, string calendarId, string address, 
+    public isolated function init(int port, calendar:Client calendarClient, string calendarId, string address,
                                     string? expiration = ()) returns error? {
         self.httpListener = check new (port);
         self.calendarClient = calendarClient;
@@ -40,7 +42,7 @@ public class Listener {
     }
 
     public function attach(service object {} s, string[]|string? name = ()) returns @tainted error? {
-        calendar:WatchResponse res = check self.calendarClient->watchEvents(self.calendarId, self.address, 
+        calendar:WatchResponse res = check self.calendarClient->watchEvents(self.calendarId, self.address,
             self.expiration);
         self.resourceId = res.resourceId;
         self.channelId = res.id;
@@ -96,7 +98,7 @@ public class Listener {
                         string? updated = event?.value?.updated;
                         calendar:Time? 'start = event?.value?.'start;
                         calendar:Time? end = event?.value?.end;
-                        info.eventType = (created is string && updated is string && 'start is calendar:Time && 
+                        info.eventType = (created is string && updated is string && 'start is calendar:Time &&
                             end is calendar:Time) ? ((created.substring(0, 19) == updated.substring(0, 19)) ?
                             CREATED : UPDATED) : DELETED;
                         return info;
