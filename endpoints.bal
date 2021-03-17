@@ -16,12 +16,12 @@
 
 import ballerina/http;
 import ballerina/uuid;
-import ballerinax/connector;
+import ballerinax/ux_metadata;
 
 # Client for Google Calendar connector.
 # 
 # + calendarClient - HTTP client endpoint
-@connector:Auth {authType: [connector:BEARER_TOKEN, connector:OAUTH2_DIRECT_TOKEN]}
+@ux_metadata:Auth {authType: [ux_metadata:BEARER_TOKEN, ux_metadata:OAUTH2_DIRECT_TOKEN]}
 @display {label: "Google Calendar Client"}
 public client class Client {
     public http:Client calendarClient;
@@ -239,7 +239,7 @@ public client class Client {
     remote function stopChannel(@display {label: "Channel id"} string id,
                                 @display {label: "Resource id"} string resourceId,
                                 @display {label: "An arbitrary string to not being spoofed (optional)"} string? token
-                                = ()) returns error? {
+                                = ()) returns @tainted error? {
         json payload = {
             id: id,
             resourceId: resourceId,
