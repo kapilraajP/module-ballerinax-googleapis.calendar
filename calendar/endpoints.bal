@@ -25,6 +25,10 @@ public client class Client {
     public http:Client calendarClient;
     private ClientOAuth2ExtensionGrantHandler clientHandler;
 
+    # Initializes Google Calendar connector client.
+    #
+    # + calendarConfig -  Configurations required to initialize the `Client`
+    # + return - An error on failure of initialization or else `()`
     public isolated function init(CalendarConfiguration calendarConfig) returns error? {
         http:ClientSecureSocket? socketConfig = calendarConfig?.secureSocketConfig;
         if (calendarConfig.oauth2Config is (http:BearerTokenConfig|http:OAuth2RefreshTokenGrantConfig)) {
@@ -41,7 +45,7 @@ public client class Client {
         }
     }
 
-    # Get Calendars
+    # Gets Calendars
     # 
     # + optional - Record that contains optionals
     # + userAccount - The email address of the user for requesting delegated access in service account
@@ -56,7 +60,7 @@ public client class Client {
         return new stream<Calendar,error>(calendarStream);
     }
 
-    # Create a calendar.
+    # Creates a calendar.
     # 
     # + title - Calendar name
     # + userAccount - The email address of the user for requesting delegated access in service account
@@ -77,7 +81,7 @@ public client class Client {
         return toCalendar(result);
     }
 
-    # Delete a calendar.
+    # Deletes a calendar.
     # 
     # + calendarId - Calendar ID
     # + userAccount - The email address of the user for requesting delegated access in service account
@@ -92,7 +96,7 @@ public client class Client {
         _ = check checkAndSetErrors(httpResponse);
     }
 
-    # Create an event.
+    # Creates an event.
     # 
     # + calendarId - Calendar ID
     # + event - Record that contains event information.
@@ -115,7 +119,7 @@ public client class Client {
         return toEvent(result);
     }
            
-    # Create an event at the moment with simple text .
+    # Creates an event at the moment with simple text .
     # 
     # + calendarId - Calendar ID
     # + text - Event description
@@ -137,7 +141,7 @@ public client class Client {
         return toEvent(result);
     }
 
-    # Update an existing event.
+    # Updates an existing event.
     # 
     # + calendarId - Calendar ID
     # + eventId - Event ID
@@ -162,7 +166,7 @@ public client class Client {
         return toEvent(result);      
     }
 
-    # Get all events.
+    # Gets all events.
     # 
     # + calendarId - Calendar ID
     # + userAccount - The email address of the user for requesting delegated access in service account
@@ -178,7 +182,7 @@ public client class Client {
         return new stream<Event,error>(eventStream);    
     }
 
-    # Get an event.
+    # Gets an event.
     # 
     # + calendarId - Calendar ID
     # + eventId - Event ID
@@ -196,7 +200,7 @@ public client class Client {
         return toEvent(resp);
     }
 
-    # Delete an event.
+    # Deletes an event.
     # 
     # + calendarId - Calendar ID
     # + eventId - Event ID
@@ -213,7 +217,7 @@ public client class Client {
         _ = check checkAndSetErrors(httpResponse);
     }
 
-    # Get events response.
+    # Gets events response.
     # 
     # + calendarId - Calendar ID
     # + count - Number of events required in one page
